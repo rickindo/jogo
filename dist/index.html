@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#09161e">
+  <meta name="description" content="Operação Travessia: um arcade 2D de sátira política fictícia na Ponte da Amizade. Pule, desvie e alcance o outro lado.">
+  <title>Operação Travessia | Ponte da Amizade</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2309161e'/%3E%3Cpath d='M9 44h46M16 44V18h5v26m22 0V18h5v26M18 22q14 24 28 0' stroke='%23f4bd55' stroke-width='4' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="scene.js" defer></script>
+  <script src="engine.js" defer></script>
+  <script src="ending.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Operação Travessia — início">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 44" fill="none"><path d="M3 36h42M10 36V8h5v28M33 36V8h5v28M12 12c7 18 17 18 23 0M24 24v12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-type"><span>OPERAÇÃO</span><strong>TRAVESSIA</strong></span>
+        <span class="arcade-tag">ARCADE 2D</span>
+      </a>
+      <div class="route-label"><span class="route-dot" aria-hidden="true"></span><span>FOZ DO IGUAÇU</span><span class="route-arrow" aria-hidden="true">⟶</span><span>CIUDAD DEL ESTE</span></div>
+    </header>
+
+    <main>
+      <div class="game-topline"><span>PONTE DA AMIZADE <span class="topline-divider">/</span> <strong>O OUTRO LADO ESTÁ LOGO ALI.</strong></span><span class="edition">EDIÇÃO SATÍRICA · 01</span></div>
+      <section class="game-frame" aria-label="Jogo Operação Travessia">
+        <div class="hud">
+          <div class="hud-player"><span class="hud-kicker">FÔLEGO</span><span id="lives" class="lives" aria-label="Vidas">♥ ♥ ♥</span></div>
+          <div class="hud-stat"><span class="hud-kicker">PONTOS</span><strong id="score">0000</strong></div>
+          <div class="hud-stat best-stat"><span class="hud-kicker">RECORDE</span><strong id="best">0000</strong></div>
+          <div class="journey"><div class="journey-labels"><span id="stageLabel">01 · A PONTE</span><strong id="progressLabel">0%</strong></div><div class="progress-track" role="presentation"><span id="progress" style="width:0%"></span></div></div>
+          <div class="hud-actions"><button id="soundBtn" class="icon-button" type="button" title="Ativar ou desativar som" aria-label="Ativar ou desativar som">♪</button><button id="pauseBtn" class="icon-button" type="button" title="Pausar ou continuar (P)" aria-label="Pausar ou continuar">Ⅱ</button></div>
+        </div>
+
+        <div class="game-viewport">
+          <canvas id="game" width="1280" height="640" tabindex="0" aria-label="Jogo 2D Operação Travessia. Use espaço ou seta para cima para pular; setas laterais ou A e D para mover; Shift para arrancada; P para pausar.">Seu navegador precisa ter suporte a Canvas para executar este jogo.</canvas>
+          <div id="toast" class="toast" role="status" hidden></div>
+          <button id="skipEndingBtn" class="skip-ending" type="button" hidden>PULAR ANIMAÇÃO →</button>
+          <div id="overlay" class="overlay">
+            <div class="overlay-content">
+              <p id="overlayEyebrow" class="eyebrow"><span class="eyebrow-line"></span> VOCÊ JOGA COM FLÁVIO</p>
+              <h1 id="overlayTitle">Uma ponte.<br><span>Muita confusão.</span></h1>
+              <p id="overlayText" class="overlay-description">Pule barreiras, drible as patrulhas e o palanque dos memes. Um avião e uma recepção inesperada esperam do outro lado.</p>
+              <button id="startBtn" class="start-button" type="button">COMEÇAR TRAVESSIA <span aria-hidden="true">⟶</span></button>
+              <button id="endingPreviewBtn" class="ending-preview" type="button">▶ VER A ANIMAÇÃO FINAL</button>
+              <p id="overlayHint" class="overlay-hint"><span class="hint-dot" aria-hidden="true"></span> ESPAÇO PARA COMEÇAR · PULO DUPLO LIBERADO</p>
+            </div>
+            <div class="scene-stamp" aria-hidden="true"><span>UMA MISSÃO</span><strong>100%<br>FICTÍCIA</strong><span>0% DE DISCRIÇÃO</span></div>
+          </div>
+        </div>
+
+        <div class="control-bar">
+          <span class="control-intro">COMO JOGAR</span>
+          <div class="keyboard-controls" aria-label="Controles de teclado">
+            <span class="control-item"><span class="key key-wide">ESPAÇO</span><span class="key">↑</span><span>Pulo duplo</span></span>
+            <span class="control-item"><span class="key">←</span><span class="key">→</span><span>Mover <small>A / D</small></span></span>
+            <span class="control-item"><span class="key key-wide">SHIFT</span><span>Arrancada</span></span>
+            <span class="control-item pause-tip"><span class="key">P</span><span>Pausar</span></span>
+          </div>
+          <span class="control-end"><span class="status-dot" aria-hidden="true"></span> PRONTO PRA CORRER</span>
+        </div>
+        <div class="touch-controls" aria-label="Controles por toque">
+          <div class="touch-direction"><button id="leftBtn" type="button" data-action="left" aria-label="Mover para a esquerda">←</button><button id="rightBtn" type="button" data-action="right" aria-label="Mover para a direita">→</button></div>
+          <div class="touch-actions"><button id="dashBtn" type="button" data-action="dash">ARRANCADA</button><button id="jumpBtn" type="button" data-action="jump">PULAR <span aria-hidden="true">↑</span></button></div>
+        </div>
+      </section>
+      <div id="liveMessage" class="sr-only" role="status" aria-live="polite"></div>
+    </main>
+
+    <footer class="site-footer"><p><span class="fiction-mark" aria-hidden="true">✳</span> Sátira política fictícia. Viagem e diálogos finais inventados.</p><a class="sources-link" href="fontes.html" target="_blank" rel="noopener">FONTES DOS MEMES · 2026 ↗</a><span>JAVASCRIPT PURO <span class="footer-dot">·</span> RECORDE SALVO NESTE NAVEGADOR</span></footer>
+  </div>
+</body>
+</html>
